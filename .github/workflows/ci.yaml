@@ -100,3 +100,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           POLLINATION_TOKEN: ${{ secrets.POLLINATION_PRODUCTION_TOKEN }}
+          TAG: ${{ steps.get-context.outputs.tag }}
