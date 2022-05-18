@@ -1,4 +1,4 @@
-# UTCI-heatmap App
+## UTCI-Heatmap App
 
 ![App](/images/app.png)
 
