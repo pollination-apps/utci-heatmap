@@ -94,10 +94,11 @@ jobs:
       - name: deploy to production
         run: |
           TAG=$(echo "${TAG:?}" | sed 's/[[:space:]]//g')
+          TAG=${TAG%%-*}
           echo $TAG
           pollination-apps deploy . --tag $TAG --owner ladybug-tools -n ${{github.event.repository.name}} -e production -m "${{github.event.commits[0].message}}"
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          POLLINATION_TOKEN: ${{ secrets.POLLINATION_PRODUCTION_TOKEN }}
+          POLLINATION_TOKEN: ${{ secrets.POLLINATION_LADYBUGBOT_TOKEN }}
           TAG: ${{ steps.get-context.outputs.tag }}
