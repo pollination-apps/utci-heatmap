@@ -67,7 +67,7 @@ jobs:
           echo "::set-output name=app_name::$clean_repo_name"
 
       - name: deploy to staging
-        run: pollination-apps deploy . --tag ${{needs.release-on-github.outputs.tag}} --owner ladybug-tools -n $APP_NAME -e staging -m "${{github.event.commits[0].message}}"
+        run: pollination-apps deploy . --tag ${{needs.release-on-github.outputs.tag}} --owner ladybug-tools -n "$APP_NAME" -e staging -m "${{github.event.commits[0].message}}"
         
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -111,7 +111,7 @@ jobs:
           TAG=$(echo "${TAG:?}" | sed 's/[[:space:]]//g')
           TAG=${TAG%%-*}
           echo $TAG
-          pollination-apps deploy . --tag $TAG --owner ladybug-tools -n $APP_NAME -e production -m "${{github.event.commits[0].message}}"
+          pollination-apps deploy . --tag $TAG --owner ladybug-tools -n "$APP_NAME" -e production -m "${{github.event.commits[0].message}}"
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
