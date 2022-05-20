@@ -64,6 +64,7 @@ jobs:
         run: |
           repo_name=${{ github.event.repository.name }}
           clean_repo_name=${repo_name/-/ }
+          echo $clean_repo_name
           echo "::set-output name=app_name::$clean_repo_name"
 
       - name: deploy to staging
@@ -104,6 +105,7 @@ jobs:
         run: |
           repo_name=${{ github.event.repository.name }}
           clean_repo_name=${repo_name/-/ }
+          echo $clean_repo_name
           echo "::set-output name=app_name::$clean_repo_name"
 
       - name: deploy to production
