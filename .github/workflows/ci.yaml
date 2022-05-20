@@ -69,6 +69,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           POLLINATION_TOKEN: ${{ secrets.POLLINATION_STAGING_TOKEN }}
+          CLEAN_REPO_NAME: $clean_repo_name
 
   deploy-to-production:
     name: Deploy to Pollination Production
@@ -111,3 +112,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           POLLINATION_TOKEN: ${{ secrets.POLLINATION_LADYBUGBOT_TOKEN }}
           TAG: ${{ steps.get-context.outputs.tag }}
+          CLEAN_REPO_NAME: $clean_repo_name
