@@ -63,6 +63,7 @@ jobs:
         id: app-name
         run: |
           repo_name=${{ github.event.repository.name }}
+          echo $repo_name
           clean_repo_name=${repo_name/-/ }
           echo $clean_repo_name
           echo "::set-output name=app_name::$clean_repo_name"
@@ -104,6 +105,7 @@ jobs:
         id: app-name
         run: |
           repo_name=${{ github.event.repository.name }}
+          echo $repo_name
           clean_repo_name=${repo_name/-/ }
           echo $clean_repo_name
           echo "::set-output name=app_name::$clean_repo_name"
