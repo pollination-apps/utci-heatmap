@@ -14,7 +14,8 @@ from helper import get_comfort_objs_and_title, get_legend_info, get_data, \
 st.set_page_config(
     page_title='UTCI heatmap',
     page_icon='https://app.pollination.cloud/favicon.ico',
-    layout='wide'
+    layout='wide',
+    initial_sidebar_state='collapsed'
 )
 st.sidebar.image(
     'https://uploads-ssl.webflow.com/6035339e9bb6445b8e5f77d7/616da00b76225ec0e4d975ba'
