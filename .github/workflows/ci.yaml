@@ -60,16 +60,19 @@ jobs:
         run: pip install -r dev-requirements.txt
 
       - name: Generate App name
+        id: app-name
         run: |
           repo_name=${{ github.event.repository.name }}
           clean_repo_name=${repo_name/-/ }
+          echo "::set-output name=app_name::$clean_repo_name"
 
       - name: deploy to staging
-        run: pollination-apps deploy . --tag ${{needs.release-on-github.outputs.tag}} --owner ladybug-tools -n $clean_repo_name -e staging -m "${{github.event.commits[0].message}}"
+        run: pollination-apps deploy . --tag ${{needs.release-on-github.outputs.tag}} --owner ladybug-tools -n $APP_NAME -e staging -m "${{github.event.commits[0].message}}"
+        
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           POLLINATION_TOKEN: ${{ secrets.POLLINATION_STAGING_TOKEN }}
-          CLEAN_REPO_NAME: $clean_repo_name
+          APP_NAME: ${{steps.app-name.outputs.app_name}}
 
   deploy-to-production:
     name: Deploy to Pollination Production
@@ -97,19 +100,21 @@ jobs:
         run: pip install -r dev-requirements.txt
 
       - name: Generate App name
+        id: app-name
         run: |
           repo_name=${{ github.event.repository.name }}
           clean_repo_name=${repo_name/-/ }
+          echo "::set-output name=app_name::$clean_repo_name"
 
       - name: deploy to production
         run: |
           TAG=$(echo "${TAG:?}" | sed 's/[[:space:]]//g')
           TAG=${TAG%%-*}
           echo $TAG
-          pollination-apps deploy . --tag $TAG --owner ladybug-tools -n $clean_repo_name -e production -m "${{github.event.commits[0].message}}"
+          pollination-apps deploy . --tag $TAG --owner ladybug-tools -n $APP_NAME -e production -m "${{github.event.commits[0].message}}"
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           POLLINATION_TOKEN: ${{ secrets.POLLINATION_LADYBUGBOT_TOKEN }}
           TAG: ${{ steps.get-context.outputs.tag }}
-          CLEAN_REPO_NAME: $clean_repo_name
+          APP_NAME: ${{steps.app-name.outputs.app_name}}
